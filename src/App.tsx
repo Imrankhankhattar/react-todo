@@ -1,26 +1,58 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, Link ,Navigate} from 'react-router-dom';
+import ListTasks from './pages/ListTasks';
+import CreateTask from './pages/CreateTask';
+import BulkDelete from './pages/BulkDelete';
+import styled from 'styled-components'; // Import Styled Components
+const NavContainer = styled.nav`
+  background-color: #333;
+  color: white;
+  padding: 10px 0;
+`;
 
-function App() {
+const NavList = styled.ul`
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin: 0 10px;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+      <NavContainer>
+          <NavList>
+            <li><Link to="/list-tasks">List Tasks</Link></li>
+            <li><Link to="/create-task">Create Task</Link></li>
+            <li><Link to="/bulk-delete">Bulk Delete</Link></li>
+          </NavList>
+        </NavContainer>
+
+
+        <Routes>
+        <Route path="/" element={<Navigate to="/list-tasks" />} />
+          <Route path="/list-tasks" element={<ListTasks />} />
+          <Route path="/create-task" element={<CreateTask />} />
+          <Route path="/bulk-delete" element={<BulkDelete />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
